@@ -1,0 +1,64 @@
+{
+  "requests": [
+    {
+      "output_file": "gardens-lawn.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Large manicured lawn prepared for an outdoor ceremony. Low timber stage, scattered olive trees, warm daylight, spacious premium venue photography, open and airy, no people, no text, no logos"
+    },
+    {
+      "output_file": "court-hero.jpg",
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "prompt": "Modern outdoor recreational court. Smooth teal and terracotta surface, crisp white line markings, net posts, low perimeter fencing with landscaped planting, soft late afternoon light, clean architectural sports photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "court-multi.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Multi-use outdoor sports court surface in warm terracotta and deep green. Basketball hoop with net, adjustable net posts, low olive hedges at the edge, clean daylight, premium sports facility photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "court-fitness.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Outdoor fitness and activity area in a landscaped park setting. Rubberised exercise flooring, simple timber seating, olive trees, clear morning light, premium recreational facility photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "court-event.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Outdoor community sports tournament scene. Neat spectator seating rows, temporary event canopy, well-kept court surface, warm afternoon sunlight, premium event photography, no text, no logos, no people"
+    },
+    {
+      "output_file": "court-clubhouse.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Small modern clubhouse building beside an outdoor court. Timber cladding, covered terrace seating, lawn and olive trees, soft daylight, architectural photography, warm ivory and olive green palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "court-night.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Outdoor recreational court lit by floodlights at blue hour. Crisp white line markings, long soft shadows, deep green planting around the perimeter, cinematic sports photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "event-showcase.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Corporate product showcase inside a modern retail gallery space. Minimal pedestal displays, warm focused spotlights, polished floor, elegant brand presentation setting, no text, no logos, no people"
+    },
+    {
+      "output_file": "event-garden-dinner.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Elegant outdoor garden dinner party. Round tables with ivory linen, olive branch centrepieces, warm lantern lighting at twilight, landscaped garden background, premium event photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "event-workshop.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Modern workshop and community event space. Rows of light timber tables and chairs, whiteboard wall, large windows onto greenery, bright natural light, clean premium venue photography, no people, no text, no logos"
+    }
+  ]
+}

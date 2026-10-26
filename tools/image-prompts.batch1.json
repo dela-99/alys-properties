@@ -1,0 +1,64 @@
+{
+  "requests": [
+    {
+      "output_file": "plaza-hero.jpg",
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "prompt": "Modern open-air commercial plaza at golden hour. Low-rise retail pavilions with warm limestone facades and dark bronze framing, wide pedestrian walkway, young olive trees in stone planters, low landscaped seating, contemporary architecture photography, warm ivory and muted olive green palette, clean soft sky, no people, no text, no logos"
+    },
+    {
+      "output_file": "plaza-retail.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Interior of an empty modern retail unit. Polished concrete floor, full-height glass shopfront, warm oak display shelving, track lighting, soft daylight streaming from the front, minimalist premium retail interior photography, ivory and olive tones, no people, no text, no logos"
+    },
+    {
+      "output_file": "plaza-office.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Modern corner office suite interior. Glass partitions, warm wood furniture, large windows with soft daylight, a few empty minimalist desks, premium commercial interior photography, warm neutral and olive green palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "plaza-courtyard.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Landscaped commercial courtyard between two modern retail buildings. Pale stone paving, olive trees, clipped low hedges, timber benches, empty cafe tables, soft afternoon light, architectural photography, calm premium palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "plaza-lounge.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Hospitality lounge inside a modern plaza building. Curved deep olive green banquette seating, brass details, large arched windows, warm afternoon light, premium interior photography, ivory walls, no people, no text, no logos"
+    },
+    {
+      "output_file": "plaza-corner-unit.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Corner retail unit interior with glass walls on two sides. Warm oak floor, minimal built-in display counters, brushed brass fixtures, bright even daylight, premium architectural interior photography, ivory and olive palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "gardens-hero.jpg",
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "prompt": "Landscaped event garden at dusk. Manicured lawn, mature trees, warm string lights glowing overhead, stone terrace, serene and elegant outdoor venue, editorial photography, ivory and deep olive green palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "gardens-wedding.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Outdoor wedding ceremony setup on a manicured lawn. Simple wooden arch draped with ivory fabric and olive greenery, rows of light wooden chairs, soft golden hour light, refined minimal styling, editorial event photography, no people, no text"
+    },
+    {
+      "output_file": "gardens-reception.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Elegant outdoor garden reception. Long banquet table with ivory linen, olive foliage runners, brass candlesticks, soft daylight under a canopy of trees, premium event styling, no people, no text, no logos"
+    },
+    {
+      "output_file": "gardens-pavilion.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Modern stone and timber garden pavilion with a flat roof and open sides, overlooking a landscaped lawn with olive trees, calm daylight, architectural photography, warm ivory and green palette, no people, no text, no logos"
+    }
+  ]
+}

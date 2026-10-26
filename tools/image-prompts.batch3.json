@@ -1,0 +1,22 @@
+{
+  "requests": [
+    {
+      "output_file": "event-summer-social.jpg",
+      "aspect_ratio": "3:2",
+      "resolution": "1K",
+      "prompt": "Summer evening social gathering in a landscaped plaza courtyard. Long communal tables, warm string lights between olive trees, stone paving, soft golden dusk light, premium hospitality event photography, no people, no text, no logos"
+    },
+    {
+      "output_file": "about.jpg",
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "prompt": "Wide architectural view of a landscaped mixed-use property campus. Contemporary low-rise commercial buildings in warm stone, garden lawns, and an outdoor sports court visible in the same frame, soft evening light, editorial real-estate photography, olive green and ivory palette, no people, no text, no logos"
+    },
+    {
+      "output_file": "home-hero.jpg",
+      "aspect_ratio": "16:9",
+      "resolution": "2K",
+      "prompt": "Elegant open terrace of a contemporary venue at dusk. Olive trees in large planters, low lounge seating, warm uplighting, soft distant city skyline blur, cinematic premium hospitality photography, ivory and deep olive green palette, no people, no text, no logos"
+    }
+  ]
+}

@@ -240,7 +240,7 @@ function MobileDock() {
     { id: 'events', href: '/#events', label: 'Events', Icon: CalendarDays },
     { id: 'contact', href: '/contact', label: 'Contact', Icon: ArrowUpRight },
   ]
-  return <nav className={hidden ? 'mobile-dock is-hidden' : 'mobile-dock'} aria-label="Quick navigation" aria-hidden={hidden}>{items.map(({ id, href, label, Icon }) => <a key={id} className={active === id ? 'is-active' : undefined} href={href} aria-label={label} aria-current={active === id ? 'page' : undefined} tabIndex={hidden ? -1 : undefined}><Icon size={19}/><span>{label}</span></a>)}</nav>
+  return <nav className={hidden ? 'mobile-dock is-hidden' : 'mobile-dock'} aria-label="Quick navigation" aria-hidden={hidden}>{items.map(({ id, href, label, Icon }) => <Link key={id} className={active === id ? 'is-active' : undefined} to={href} aria-label={label} aria-current={active === id ? 'page' : undefined} tabIndex={hidden ? -1 : undefined}><Icon size={19}/><span>{label}</span></Link>)}</nav>
 }
 
 

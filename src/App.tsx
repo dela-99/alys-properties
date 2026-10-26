@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, ArrowUpRight, Briefcase, CalendarDays, Car, Check, ChevronDown, Clock3, Fence, Flower2, Grid2X2, Heart, Lightbulb, MapPin, Search, ShieldCheck, ShowerHead, SlidersHorizontal, Store, Trees, Trophy, Utensils, Users, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Briefcase, CalendarDays, Car, Check, ChevronDown, Clock3, Fence, Flower2, Grid2X2, Heart, Lightbulb, Mail, MapPin, Search, ShieldCheck, ShowerHead, SlidersHorizontal, Store, Trees, Trophy, Utensils, Users, X } from 'lucide-react'
 import { destinations, getDestination } from './data/destinations'
 import { events } from './data/events'
 import { spaces, getSpace, spacesForDestination, spaceTypesForDestination } from './data/spaces'
@@ -85,9 +85,9 @@ function Header() {
     <header className="site-header"><div className="header-inner">
       <Link className="brand" to="/" aria-label="Alys Properties home"><span className="brand-logo-crop"><img src="/brand/alys-logo.jpeg" alt="" /></span><span><b>ALYS</b><small>PROPERTIES</small></span></Link>
       <nav ref={menuRef} id="mobile-main-nav" className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
-        <NavLink to="/" onClick={() => setOpen(false)}>Home</NavLink><a href="/#destinations" onClick={() => setOpen(false)}>Explore</a><a href="/#events" onClick={() => setOpen(false)}>Events</a><a href="/#about" onClick={() => setOpen(false)}>About us</a>
+        <NavLink to="/" onClick={() => setOpen(false)}>Home</NavLink><a href="/#destinations" onClick={() => setOpen(false)}>Explore</a><a href="/#events" onClick={() => setOpen(false)}>Events</a><a href="/#about" onClick={() => setOpen(false)}>About us</a><NavLink to="/contact" onClick={() => setOpen(false)}>Contact</NavLink>
       </nav>
-      <a className="button button-small header-cta" href="/#contact">Enquire <ArrowUpRight size={15}/></a>
+      <Link className="button button-small header-cta" to="/contact">Enquire <ArrowUpRight size={15}/></Link>
       <button ref={toggleRef} className={open ? 'menu-toggle is-open' : 'menu-toggle'} aria-label={open ? 'Close navigation' : 'Open navigation'} aria-controls="mobile-main-nav" aria-expanded={open} onClick={() => setOpen(value => !value)}><span/><span/><span/></button>
     </div></header>
   </>
@@ -95,6 +95,25 @@ function Header() {
 
 function Footer() {
   return <footer id="contact" className="footer"><div className="footer-main wrap"><div><Link className="brand brand-light" to="/"><span className="brand-logo-crop"><img src="/brand/alys-logo.jpeg" alt="" /></span><span><b>ALYS</b><small>PROPERTIES</small></span></Link><p>Thoughtful spaces for business, celebration and everyday life.</p></div><div><span className="footer-label">Explore</span>{destinations.map(d => <Link key={d.id} to={`/destinations/${d.id}`}>{d.name}</Link>)}</div><div><span className="footer-label">Contact</span><span>Phone · To be confirmed</span><span>Email · To be confirmed</span><span>Address · To be confirmed</span></div><div className="footer-note"><span className="footer-label">A note on this preview</span><p>Sample listings and contact placeholders are shown for demonstration. Please enquire to confirm details.</p><span className="contact-pending-text">Contact details pending confirmation</span></div></div><div className="footer-bottom wrap"><span>© {new Date().getFullYear()} Alys Properties</span><span>Privacy · Terms · To be published</span></div></footer>
+}
+
+function RouteScrollManager() {
+  const { pathname, hash } = useLocation()
+  useLayoutEffect(() => {
+    const previousRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    return () => { window.history.scrollRestoration = previousRestoration }
+  }, [])
+  useLayoutEffect(() => {
+    if (hash) {
+      const frame = requestAnimationFrame(() => document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({ block: 'start' }))
+      return () => cancelAnimationFrame(frame)
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    const frame = requestAnimationFrame(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }))
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash])
+  return null
 }
 
 function Image({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
@@ -114,7 +133,7 @@ function SpaceCard({ id }: { id: string }) {
 
 function EventCard({ event }: { event: (typeof events)[number] }) {
   const d = getDestination(event.destinationId)!
-  return <article className="event-card"><div className="event-image"><Image src={event.image} alt={`${d.name} event venue`} /><span className="sample-tag">Sample event</span></div><div className="event-body"><div className="event-meta"><span><CalendarDays size={14}/>{formatDate(event.date)}</span><span>{event.category}</span></div><h3>{event.title}</h3><p>{d.name} · {event.time}</p><span className="event-disclaimer">Schedule not confirmed</span><a className="text-link" href="#contact">{event.ctaLabel}<ArrowRight size={15}/></a></div></article>
+  return <article className="event-card"><div className="event-image"><Image src={event.image} alt={`${d.name} event venue`} /><span className="sample-tag">Sample event</span></div><div className="event-body"><div className="event-meta"><span><CalendarDays size={14}/>{formatDate(event.date)}</span><span>{event.category}</span></div><h3>{event.title}</h3><p>{d.name} · {event.time}</p><span className="event-disclaimer">Schedule not confirmed</span><Link className="text-link" to="/contact">{event.ctaLabel}<ArrowRight size={15}/></Link></div></article>
 }
 
 function DestinationCard({ id }: { id: DestinationId }) {
@@ -143,16 +162,23 @@ function Home() {
       {!visibleSpaces.length && !matchedEvents.length && <div className="empty-state"><Search size={23}/><h3>No matches found</h3><p>Try another search or browse all destinations.</p><button className="text-link" onClick={()=>{setQuery('');setCategory('all')}}>Show all spaces <ArrowRight size={15}/></button></div>}</div></section>
       <section className="events-section wrap" id="events"><div className="section-heading section-heading-row"><div><span className="eyebrow">MARK THE MOMENT</span><h2>Happening <em>soon.</em></h2><p>See what’s coming up across Alys Properties.</p></div><span className="sample-banner"><span/> Illustrative programme · dates unconfirmed</span></div><div className="events-grid">{activeEvents.map(e=><EventCard key={e.id} event={e}/>)}</div><p className="fine-print">Events shown are examples only. No dates, tickets or registrations are confirmed.</p></section>
       <section className="editorial-section"><div className="editorial-inner wrap"><div className="editorial-photo"><Image src={heroImage.gardens} alt="Outdoor garden event venue"/><span>ROOM TO MAKE IT YOURS</span></div><div className="editorial-copy"><span className="eyebrow">THE ALYS EXPERIENCE</span><h2>More than a place.<br/><em>A space for possibility.</em></h2><p>From a new chapter in business to the moments worth gathering for, Alys brings together considered spaces for work, celebration and recreation.</p><a className="button" href="#about">Discover Alys <ArrowRight size={16}/></a><div className="editorial-numbers"><div><b>03</b><span>Distinct destinations</span></div><div><b>01</b><span>Place to explore</span></div></div></div></div></section>
-      <section className="about-section wrap" id="about"><div><span className="eyebrow">A NOTE FROM ALYS</span><h2>Made for the way<br/>you want to <em>live.</em></h2></div><p>Alys Properties brings together commercial spaces, event venues and recreational places in one thoughtful collection. This preview introduces the destinations; specific inventory and operating details are being confirmed.</p><a className="text-link" href="#contact">Start a conversation <ArrowRight size={15}/></a></section>
-      <section className="cta-band wrap"><div><span className="eyebrow-light">YOUR NEXT CHAPTER STARTS HERE</span><h2>Let's find your place.</h2></div><a className="button button-cream" href="#contact">Make an enquiry <ArrowUpRight size={17}/></a><span className="cta-orbit"/></section>
+      <section className="about-section wrap" id="about"><div><span className="eyebrow">A NOTE FROM ALYS</span><h2>Made for the way<br/>you want to <em>live.</em></h2></div><p>Alys Properties brings together commercial spaces, event venues and recreational places in one thoughtful collection. This preview introduces the destinations; specific inventory and operating details are being confirmed.</p><Link className="text-link" to="/contact">Start a conversation <ArrowRight size={15}/></Link></section>
+      <section className="cta-band wrap"><div><span className="eyebrow-light">YOUR NEXT CHAPTER STARTS HERE</span><h2>Let's find your place.</h2></div><Link className="button button-cream" to="/contact">Make an enquiry <ArrowUpRight size={17}/></Link><span className="cta-orbit"/></section>
     </main>
   </>
 }
 
-function EnquiryForm({ destinationId, venueId, onClose }: { destinationId: DestinationId; venueId?: string; onClose?: () => void }) {
+function EnquiryForm({ destinationId, venueId, onClose }: { destinationId: DestinationId | ''; venueId?: string; onClose?: () => void }) {
   const [sent, setSent] = useState(false)
   function handleSubmit(e: FormEvent<HTMLFormElement>) { e.preventDefault(); setSent(true) }
-  return <div className="enquiry-panel" id="enquiry">{onClose && <button className="form-close" onClick={onClose} aria-label="Close enquiry form"><X size={18}/></button>}{sent ? <div className="success-state"><span className="success-icon"><Check size={22}/></span><span className="eyebrow">ENQUIRY PREPARED</span><h3>Your enquiry preview is ready.</h3><p>This demo form does not send or store your details. Connect a company inbox or backend to receive enquiries.</p><button className="button" onClick={()=>{setSent(false);onClose?.()}}>Done <ArrowRight size={15}/></button></div> : <><span className="eyebrow">LET'S TALK</span><h3>Make an enquiry</h3><p>Share a few details and the Alys team can follow up once contact channels are confirmed.</p><form onSubmit={handleSubmit} className="enquiry-form"><label>Your name<input name="name" autoComplete="name" required placeholder="Full name"/></label><div className="form-pair"><label>Email address<input name="email" type="email" autoComplete="email" required placeholder="you@example.com"/></label><label>Phone number<input name="phone" type="tel" autoComplete="tel" required placeholder="Your number"/></label></div><div className="form-pair"><label>Destination<select name="destination" defaultValue={destinationId}>{destinations.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}</select></label><label>Preferred date<input name="date" type="date" min={new Date().toISOString().slice(0,10)}/></label></div><input type="hidden" name="venue" value={venueId ?? ''}/><label>Tell us more<textarea name="message" rows={3} placeholder="What are you planning?"/></label><p className="form-disclaimer">Demo only · no details are stored or sent.</p><button className="button form-submit" type="submit">Prepare enquiry <ArrowRight size={16}/></button></form></>}</div>
+  return <div className="enquiry-panel" id="enquiry">{onClose && <button className="form-close" onClick={onClose} aria-label="Close enquiry form"><X size={18}/></button>}{sent ? <div className="success-state"><span className="success-icon"><Check size={22}/></span><span className="eyebrow">ENQUIRY PREPARED</span><h3>Your enquiry preview is ready.</h3><p>This demo form does not send or store your details. Connect a company inbox or backend to receive enquiries.</p><button className="button" onClick={()=>{setSent(false);onClose?.()}}>Done <ArrowRight size={15}/></button></div> : <><span className="eyebrow">LET'S TALK</span><h3>Make an enquiry</h3><p>Share a few details and the Alys team can follow up once contact channels are confirmed.</p><form onSubmit={handleSubmit} className="enquiry-form"><label>Your name<input name="name" autoComplete="name" required placeholder="Full name"/></label><div className="form-pair"><label>Email address<input name="email" type="email" autoComplete="email" required placeholder="you@example.com"/></label><label>Phone number <span>(optional)</span><input name="phone" type="tel" autoComplete="tel" placeholder="Your number"/></label></div><div className="form-pair"><label>Destination<select name="destination" defaultValue={destinationId} required><option value="">Choose a destination</option>{destinations.map(d=><option key={d.id} value={d.id}>{d.name}</option>)}</select></label><label>Preferred date<input name="date" type="date" min={new Date().toISOString().slice(0,10)}/></label></div><input type="hidden" name="venue" value={venueId ?? ''}/><label>Tell us more<textarea name="message" rows={3} required placeholder="What are you planning?"/></label><p className="form-disclaimer">Demo only · no details are stored or sent.</p><button className="button form-submit" type="submit">Prepare enquiry <ArrowRight size={16}/></button></form></>}</div>
+}
+
+function ContactPage() {
+  return <main className="contact-page wrap">
+    <section className="contact-hero"><div className="contact-hero-copy"><span className="eyebrow">WE’RE HERE TO HELP</span><h1>Let’s talk about<br/><em>what’s possible.</em></h1><p>Tell us what you’re looking for, whether it’s a space for your business, a place to gather, or somewhere to play.</p><div className="contact-assurance"><span><ShieldCheck size={16}/> Your details stay in this preview</span><span><Clock3 size={16}/> No booking or payment is made</span></div></div><div className="contact-hero-art"><span className="contact-art-icon"><Mail size={24}/></span><span className="eyebrow">A GOOD PLACE TO START</span><h2>Every plan begins<br/>with a conversation.</h2><p>Choose a destination below or share a little about your plans in the form.</p><div className="contact-destination-links">{destinations.map(d=><Link key={d.id} to={`/destinations/${d.id}`}>{d.name}<ArrowUpRight size={15}/></Link>)}</div></div></section>
+    <section className="contact-content"><div className="contact-intro"><span className="eyebrow">GET IN TOUCH</span><h2>How can we<br/><em>help you?</em></h2><p>Use the form to tell us what you have in mind. Contact details and response times will be added once confirmed.</p><div className="contact-detail-card"><span className="contact-detail-icon"><Mail size={18}/></span><span><b>Email</b><small>Contact channel to be confirmed</small></span><span className="contact-pending-badge">Coming soon</span></div><div className="contact-detail-card"><span className="contact-detail-icon"><MapPin size={18}/></span><span><b>Visit</b><small>Location details to be confirmed</small></span><span className="contact-pending-badge">Coming soon</span></div></div><EnquiryForm destinationId=""/></section>
+  </main>
 }
 
 function DestinationPage() {
@@ -171,13 +197,31 @@ function SpacePage() {
 function NotFound() { return <main className="not-found wrap"><span className="eyebrow">PAGE NOT FOUND</span><h1>Let's get you <em>back.</em></h1><Link className="button" to="/">Return home <ArrowRight size={16}/></Link></main> }
 
 export default function App() {
-  return <><Header/><Routes><Route path="/" element={<Home/>}/><Route path="/destinations/:id" element={<DestinationPage/>}/><Route path="/spaces/:id" element={<SpacePage/>}/><Route path="*" element={<NotFound/>}/></Routes><Footer/><MobileDock/></>
+  return <><RouteScrollManager/><Header/><RoutePageContent/><Footer/><MobileDock/></>
+}
+
+function RoutePageContent() {
+  const location = useLocation()
+  const visitedPaths = useRef(new Set([location.pathname]))
+  const [transition, setTransition] = useState({ pathname: location.pathname, firstVisit: true })
+
+  useLayoutEffect(() => {
+    if (transition.pathname === location.pathname) return
+    const firstVisit = !visitedPaths.current.has(location.pathname)
+    visitedPaths.current.add(location.pathname)
+    setTransition({ pathname: location.pathname, firstVisit })
+  }, [location.pathname, transition.pathname])
+
+  const firstVisit = transition.pathname === location.pathname && transition.firstVisit
+  return <div key={location.pathname} className={`route-stage${firstVisit ? ' is-first-visit' : ''}`}>
+    <Routes><Route path="/" element={<Home/>}/><Route path="/contact" element={<ContactPage/>}/><Route path="/destinations/:id" element={<DestinationPage/>}/><Route path="/spaces/:id" element={<SpacePage/>}/><Route path="*" element={<NotFound/>}/></Routes>
+  </div>
 }
 
 function MobileDock() {
   const { pathname, hash } = useLocation()
   const [hidden, setHidden] = useState(false)
-  const active = hash.slice(1) || (pathname.startsWith('/destinations/') ? 'destinations' : pathname === '/' ? 'home' : '')
+  const active = hash.slice(1) || (pathname.startsWith('/destinations/') ? 'destinations' : pathname === '/contact' ? 'contact' : pathname === '/' ? 'home' : '')
   useEffect(() => {
     let previousY = window.scrollY
     const onScroll = () => {
@@ -194,7 +238,9 @@ function MobileDock() {
     { id: 'home', href: '/', label: 'Home', Icon: Grid2X2 },
     { id: 'destinations', href: '/#destinations', label: 'Explore', Icon: Search },
     { id: 'events', href: '/#events', label: 'Events', Icon: CalendarDays },
-    { id: 'contact', href: '/#contact', label: 'Contact', Icon: ArrowUpRight },
+    { id: 'contact', href: '/contact', label: 'Contact', Icon: ArrowUpRight },
   ]
   return <nav className={hidden ? 'mobile-dock is-hidden' : 'mobile-dock'} aria-label="Quick navigation" aria-hidden={hidden}>{items.map(({ id, href, label, Icon }) => <a key={id} className={active === id ? 'is-active' : undefined} href={href} aria-label={label} aria-current={active === id ? 'page' : undefined} tabIndex={hidden ? -1 : undefined}><Icon size={19}/><span>{label}</span></a>)}</nav>
 }
+
+

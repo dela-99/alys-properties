@@ -264,3 +264,86 @@ body { padding-top: 94px; }
 @media (max-width: 640px) { .mobile-dock a.is-active { background: transparent; color: var(--olive); font-weight: 700; } }
 
 @media (max-width: 640px) { .destination-hero h1 { font-size: clamp(40px, 10vw, 46px); } }
+
+/* Contact page */
+.contact-page { padding-top: 34px; padding-bottom: 90px; }
+.contact-hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 7%; align-items: center; padding-block: 30px 76px; }
+.contact-hero-copy h1 { margin: 16px 0 20px; color: var(--olive); font-size: clamp(46px, 6vw, 72px); font-weight: 500; line-height: 1.02; letter-spacing: -.05em; }
+.contact-hero-copy h1 em,.contact-hero-art h2 em,.contact-intro h2 em { color: #889276; font: italic 400 1em var(--serif); letter-spacing: -.045em; }
+.contact-hero-copy > p,.contact-intro > p { max-width: 470px; color: #77786f; font-size: 14px; line-height: 1.85; }
+.contact-assurance { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 27px; color: #74796a; font-size: 11px; }
+.contact-assurance span { display: inline-flex; align-items: center; gap: 8px; }
+.contact-assurance svg { color: #879276; }
+.contact-hero-art { position: relative; min-height: 330px; overflow: hidden; padding: 34px; border: 1px solid #e9e7df; border-radius: 24px; background: radial-gradient(ellipse at 100% 0%, rgb(205 214 193 / .68), transparent 48%), #f1f0e9; }
+.contact-hero-art::after { content: ''; position: absolute; right: -60px; bottom: -140px; width: 270px; height: 270px; border: 1px solid rgb(86 100 72 / .18); border-radius: 50%; box-shadow: 0 0 0 24px rgb(86 100 72 / .035), 0 0 0 48px rgb(86 100 72 / .03); pointer-events: none; }
+.contact-art-icon { display: grid; width: 48px; height: 48px; place-items: center; margin-bottom: 23px; border-radius: 50%; background: #e4e9dc; color: var(--olive); }
+.contact-hero-art > .eyebrow { display: block; }
+.contact-hero-art h2 { position: relative; z-index: 1; margin: 10px 0 10px; color: var(--olive); font: 500 31px/1.18 var(--serif); }
+.contact-hero-art > p { position: relative; z-index: 1; max-width: 360px; color: #77786f; font-size: 12px; line-height: 1.75; }
+.contact-destination-links { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+.contact-destination-links a { display: inline-flex; align-items: center; gap: 9px; padding: 10px 13px; border: 1px solid #e1e3d8; border-radius: 999px; background: rgb(255 255 255 / .65); color: #536047; font-size: 11px; transition: background .2s, transform .2s; }
+.contact-destination-links a:hover { transform: translateY(-2px); background: white; }
+.contact-content { display: grid; grid-template-columns: .78fr 1.22fr; gap: 9%; align-items: start; padding-top: 65px; border-top: 1px solid var(--line); }
+.contact-intro { padding-top: 15px; }
+.contact-intro h2 { margin: 7px 0 15px; color: var(--olive); font-size: clamp(35px, 4vw, 47px); font-weight: 500; line-height: 1.08; letter-spacing: -.045em; }
+.contact-intro > p { font-size: 12px; }
+.contact-detail-card { display: flex; align-items: center; gap: 12px; margin-top: 13px; padding: 14px; border: 1px solid #eeece5; border-radius: 13px; background: rgb(255 255 255 / .56); }
+.contact-detail-icon { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border-radius: 50%; background: #eff1e9; color: #737e64; }
+.contact-detail-card > span:nth-child(2) { display: grid; gap: 4px; }
+.contact-detail-card b { color: #4b5042; font-size: 12px; font-weight: 600; }
+.contact-detail-card small { color: #888a80; font-size: 10px; }
+.contact-pending-badge { margin-left: auto; color: #858a78; font-size: 9px; white-space: nowrap; }
+.contact-content .enquiry-panel { padding: 32px; }
+.contact-content .enquiry-panel h3 { font-size: 30px; }
+.contact-content .enquiry-form { gap: 15px; }
+.contact-content .enquiry-form label { font-size: 11px; }
+.contact-content .enquiry-form label > span { display: inline; color: #8b8c82; font-weight: 400; }
+.contact-content .enquiry-form input,.contact-content .enquiry-form textarea,.contact-content .enquiry-form select { min-height: 46px; font-size: 12px; }
+.contact-content .enquiry-form textarea { min-height: 100px; }
+
+@media (max-width: 760px) {
+  .contact-page { padding-top: 20px; padding-bottom: 75px; }
+  .contact-hero { grid-template-columns: 1fr; gap: 28px; padding-block: 20px 46px; }
+  .contact-hero-copy h1 { font-size: clamp(43px, 11vw, 58px); }
+  .contact-hero-copy > p { font-size: 13px; }
+  .contact-hero-art { min-height: auto; padding: 26px 22px; }
+  .contact-content { grid-template-columns: 1fr; gap: 27px; padding-top: 42px; }
+  .contact-intro h2 { font-size: 39px; }
+  .contact-content .enquiry-panel { padding: 23px 18px; }
+  .contact-content .form-pair { grid-template-columns: 1fr; }
+}
+
+/* Subtle content entrance and route transitions. The fixed header and dock stay outside this stage. */
+@keyframes route-arrive {
+  from { opacity: .78; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes content-arrive {
+  from { opacity: .65; transform: translate3d(0, 10px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.route-stage { min-height: 40vh; animation: route-arrive 250ms cubic-bezier(.22, 1, .36, 1) both; }
+.route-stage.is-first-visit { animation-duration: 320ms; }
+.route-stage.is-first-visit > main > .hero .hero-copy > * { animation: content-arrive 430ms cubic-bezier(.22, 1, .36, 1) both; }
+.route-stage.is-first-visit > main > .hero .hero-copy > :nth-child(1) { animation-delay: 35ms; }
+.route-stage.is-first-visit > main > .hero .hero-copy > :nth-child(2) { animation-delay: 70ms; }
+.route-stage.is-first-visit > main > .hero .hero-copy > :nth-child(3) { animation-delay: 110ms; }
+.route-stage.is-first-visit > main > .hero .hero-copy > :nth-child(4) { animation-delay: 145ms; }
+.route-stage.is-first-visit > main > .hero-visual,
+.route-stage.is-first-visit .destination-hero-image,
+.route-stage.is-first-visit .contact-hero-art,
+.route-stage.is-first-visit .space-detail-image { animation: content-arrive 520ms cubic-bezier(.22, 1, .36, 1) 90ms both; }
+.route-stage.is-first-visit .destination-card { animation: content-arrive 430ms cubic-bezier(.22, 1, .36, 1) both; }
+.route-stage.is-first-visit .destination-card:nth-child(2) { animation-delay: 70ms; }
+.route-stage.is-first-visit .destination-card:nth-child(3) { animation-delay: 140ms; }
+@media (prefers-reduced-motion: reduce) {
+  .route-stage,
+  .route-stage.is-first-visit > main > .hero .hero-copy > *,
+  .route-stage.is-first-visit > main > .hero-visual,
+  .route-stage.is-first-visit .destination-hero-image,
+  .route-stage.is-first-visit .contact-hero-art,
+  .route-stage.is-first-visit .space-detail-image,
+  .route-stage.is-first-visit .destination-card { animation: none !important; }
+}
+
+
